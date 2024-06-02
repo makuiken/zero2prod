@@ -1,4 +1,3 @@
-use tracing::Instrument;
 use actix_web::{web, HttpResponse};
 use chrono::Utc;
 use sqlx::PgPool;
@@ -52,6 +51,7 @@ pub async fn insert_subscriber(
         .await
         .map_err(|e| {
             tracing::error!("Failed to execute query: {:?}", e);
+            e
         })?;
     Ok(())
 }
